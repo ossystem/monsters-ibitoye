@@ -25,6 +25,6 @@ module.exports = class Question extends Sequelize.Model {
   }
 
   static associate(models) {
-    models.Question.hasMany(models.QuestionOption, { foreignKey: 'questionId', as: 'questions' });
+    models.Question.hasMany(models.QuestionOption, { foreignKey: 'questionId', as: 'options' });
   }
 };

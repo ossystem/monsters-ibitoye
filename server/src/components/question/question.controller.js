@@ -1,4 +1,6 @@
-const QuestionModel = require('./models/question.model');
+const QuestionService = require('./question.service');
+const { BadRequest } = require('../../errors');
+const UserService = require('../user/user.service');
 
 /**
  * @api {get} /question/:id Get a question and it options
@@ -11,19 +13,56 @@ const QuestionModel = require('./models/question.model');
  * { "success": false, "status": "400", "message": "Bad request" }
 */
 const getQuestion = async (req, res, next) => {
-  const questions = [
-    { question: 'Are you afraid of the dark?' },
-    { question: 'What do you prefer?' },
-    { question: 'Are you a monster day or a night monster?' },
-    { question: `You'd rather be a bad or a good monster?` },
-  ];
-  const newQuestions = new QuestionModel();
-  const qa = await newQuestions.save();
-  // const qa = await QuestionModel.destroy({ where: { id: 2 }})
-  // const qa = await QuestionModel.findAll()
-  return res.send({ success: true, questions: qa });
+  try {
+    const { params: { id } } = req;
+
+    const questions = await QuestionService.getQuestion(parseInt(id));
+
+    return res.send({ success: true, questions });
+  } catch (error) {
+    next(error);
+  }
+};
+
+/**
+ * @api {post} /question Submit an answer to a question
+ * @apiVersion 1.0.0
+ * @apiName submit answer
+ * @apiGroup Question
+ * @apiParam {Number} questionOptionId Chosen answer id
+ * @apiError 400 Bad request
+ * @apiErrorExample {json} Error-Response:
+ * { "success": false, "status": "400", "message": "Bad request" }
+ */
+const submit = async (req, res, next) => {
+  try {
+    const { body: { questionOptionId }, user: { sub: authZeroId } } = req;
+
+    if (!questionOptionId) {
+      throw new BadRequest('Question option id is required');
+    }
+
+    const userData = await UserService.getUser(authZeroId);
+
+    if (!userData) {
+      throw new BadRequest('User not found');
+    }
+
+    const chosenOption = await QuestionService.getQuestionOption(questionOptionId);
+
+    const answer = await QuestionService.insertAnswer({
+      questionId: chosenOption.questionId,
+      option: chosenOption.option,
+      chosenBy: userData.id,
+    });
+
+    return res.send({ success: true, answer });
+  } catch (error) {
+    next(error);
+  }
 };
 
 module.exports = {
   getQuestion,
+  submit,
 };

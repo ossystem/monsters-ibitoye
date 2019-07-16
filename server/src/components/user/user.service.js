@@ -9,7 +9,7 @@ const getUser = async authZeroId => {
 };
 
 const updateUser =  async ({ authZeroId, update }) => {
-  const update = await UserModel.update(update, {
+  const updated = await UserModel.update(update, {
     where: { authZeroId }
   });
 

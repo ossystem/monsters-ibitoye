@@ -61,7 +61,6 @@ function mainErrorHandler(err, req, res, next) {
   }
 
   // TODO: LOG ERROR TO A FILE
-  console.log(err.statusCode)
   const error = { status: httpStatus.INTERNAL_SERVER_ERROR, success: false };
 
   if (appConfig.app.env !== 'production') {

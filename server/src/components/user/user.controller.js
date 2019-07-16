@@ -15,7 +15,7 @@ const getUsers = async (req, res, next) => {
     const { user: { sub: authZeroId } } = req;
 
     const users = await UserService.getUser(authZeroId)
-  
+
     return res.send({ success: true, users });
   } catch (error) {
     next(error);
