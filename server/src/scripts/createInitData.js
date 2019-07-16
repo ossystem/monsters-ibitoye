@@ -7,21 +7,25 @@ const QuestionOptionModel = require('../components/question_option/models/questi
 const UserModel = require('../components/user/models/user.model');
 
 ((async () => {
+  console.log('Connecting to DB')
   await Dbservice.connect(appConfig.db).sync({ force: true });
 
   // Insert users
-  // const users = [
-  //   { authZeroId: 'auth0|5d2ddcce66c7e60c7d8bcd8a', email: 'monster@gmail.com' },
-  //   { authZeroId: 'auth0|5d2df5543c52de0e89bfcd12', email: 'monster2@gmail.com' },
-  //   { authZeroId: 'auth0|5d2df662ab9cc10cbeebdc0f', email: 'monster3@gmail.com' },
-  // ];
+  console.log('\n\nInsert users\n\n');
+  const users = [
+    { authZeroId: 'auth0|5d2ddcce66c7e60c7d8bcd8a', email: 'monster@gmail.com' },
+    { authZeroId: 'auth0|5d2df5543c52de0e89bfcd12', email: 'monster2@gmail.com' },
+    { authZeroId: 'auth0|5d2df662ab9cc10cbeebdc0f', email: 'monster3@gmail.com' },
+  ];
+  const savedUsers = [];
 
-  // for (const user of users) {
-  //   const newUsers = new UserModel(user);
-  //   const savedUser = await newUsers.save();
+  for (const user of users) {
+    const newUsers = new UserModel(user);
+    savedUsers.push(await newUsers.save());
+  }
 
-  //   console.log(savedUser);
-  // }
+  await Promise.all(savedUsers);
+
   // Insert questions
   console.log('\n\nInsert questions and options\n\n');
   const questions = [
@@ -59,7 +63,7 @@ const UserModel = require('../components/user/models/user.model');
   ];
 
   for (const question of questions) {
-    const newQuestion = new QuestionModel({ question: question.question });
+    const newQuestion = new QuestionModel({ question: question.question, optionType: question.optionType });
     const savedQuestion = await newQuestion.save();
 
     const savedOptions = [];
@@ -68,7 +72,6 @@ const UserModel = require('../components/user/models/user.model');
       const newOption = new QuestionOptionModel({
         option,
         questionId: savedQuestion.id,
-        optionType: question.optionType,
       });
 
       savedOptions.push(newOption.save());

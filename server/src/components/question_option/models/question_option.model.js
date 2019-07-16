@@ -18,10 +18,6 @@ const questionOptionSchema = {
     type: Sequelize.STRING,
     allowNull: false,
   },
-  optionType: {
-    type: Sequelize.STRING,
-    allowNull: false,
-  },
 
   updatedAt: Sequelize.DATE,
   createdAt: Sequelize.DATE,
