@@ -1,7 +1,7 @@
 const router = require('express').Router();
 const request = require('request-promise');
 
-const BadRequest = require('../errors/BadRequest');
+const { BadRequest } = require('../errors');
 const { authZero } = require('../../config/app');
 
 /**
