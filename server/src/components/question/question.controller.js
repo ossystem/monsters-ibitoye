@@ -1,6 +1,6 @@
 const QuestionService = require('./question.service');
-const { BadRequest } = require('../../errors');
 const UserService = require('../user/user.service');
+const { BadRequest } = require('../../errors');
 
 /**
  * @api {get} /question/:id Get a question and it options
@@ -19,6 +19,33 @@ const getQuestion = async (req, res, next) => {
     const questions = await QuestionService.getQuestion(parseInt(id));
 
     return res.send({ success: true, questions });
+  } catch (error) {
+    next(error);
+  }
+};
+
+/**
+ * @api {get} /question/result Get answers submitted by user
+ * @apiVersion 1.0.0
+ * @apiName get answers submitted by user
+ * @apiGroup Question
+ * @apiError 400 Bad request
+ * @apiError 401 Unauthorised
+ * @apiErrorExample {json} Error-Response:
+ * { "success": false, "status": "400", "message": "Bad request" }
+*/
+const getResult = async (req, res, next) => {
+  try {
+    const { user: { sub: authZeroId } } = req;
+    const userData = await UserService.getUser(authZeroId);
+
+    if (!userData) {
+      throw new BadRequest('User not found');
+    }
+
+    const answers = await QuestionService.getUserAnswers(userData.id);
+
+    return res.send({ success: true, answers });
   } catch (error) {
     next(error);
   }
@@ -64,5 +91,6 @@ const submit = async (req, res, next) => {
 
 module.exports = {
   getQuestion,
+  getResult,
   submit,
 };

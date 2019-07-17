@@ -16,7 +16,13 @@ const getQuestion = async id => {
 
 const getQuestionOption = async id => {
   return QuestionOptionModel.findOne({
-    where: { id }
+    where: { chosenBy: id }
+  });
+};
+
+const getUserAnswers = async id => {
+  return QuestionOptionModel.findAll({
+    where: { chosenBy: id }
   });
 };
 
@@ -29,5 +35,6 @@ const insertAnswer = async answer => {
 module.exports = {
   getQuestion,
   getQuestionOption,
+  getUserAnswers,
   insertAnswer,
 }
