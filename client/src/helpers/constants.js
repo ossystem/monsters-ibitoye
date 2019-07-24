@@ -20,7 +20,7 @@ module.exports = {
     LIGHT_GREEN: '#AAD38D',
     BLACK: '#000000',
   },
-  QUESTION: {
+  QUESTION_CHECKBOX: {
     "id": 1,
     "question": "Are you afraid of the dark?",
     "optionType": "checkbox",
@@ -61,7 +61,48 @@ module.exports = {
         }
     ]
   },
-  TOGGLE_QUESTION: {
+  QUESTION_RADIO: {
+    "id": 1,
+    "question": "Are you afraid of the dark?",
+    "optionType": "radio",
+    "updatedAt": "2019-07-16T19:34:01.000Z",
+    "createdAt": "2019-07-16T19:34:01.000Z",
+    "options": [
+        {
+            "id": 1,
+            "questionId": 1,
+            "chosenBy": null,
+            "option": "I'm not scared at all",
+            "updatedAt": "2019-07-16T19:34:01.000Z",
+            "createdAt": "2019-07-16T19:34:01.000Z"
+        },
+        {
+            "id": 2,
+            "questionId": 1,
+            "chosenBy": null,
+            "option": "Sometimes",
+            "updatedAt": "2019-07-16T19:34:01.000Z",
+            "createdAt": "2019-07-16T19:34:01.000Z"
+        },
+        {
+            "id": 3,
+            "questionId": 1,
+            "chosenBy": null,
+            "option": "Never",
+            "updatedAt": "2019-07-16T19:34:01.000Z",
+            "createdAt": "2019-07-16T19:34:01.000Z"
+        },
+        {
+            "id": 4,
+            "questionId": 1,
+            "chosenBy": null,
+            "option": "What a stupid question!",
+            "updatedAt": "2019-07-16T19:34:01.000Z",
+            "createdAt": "2019-07-16T19:34:01.000Z"
+        }
+    ]
+  },
+  QUESTION_TOGGLE: {
     "id": 3,
     "question": "Are you a monster day or a night monster?",
     "optionType": "toggle",
@@ -86,7 +127,7 @@ module.exports = {
         }
     ]
   },
-  PROGRESS_QUESTION: {
+  QUESTION_SLIDER: {
     "id": 4,
     "question": "You'd rather be a bad or a good monster?",
     "optionType": "slider",

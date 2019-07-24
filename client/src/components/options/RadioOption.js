@@ -10,6 +10,7 @@ import { BUTTON_COLORS } from "../../helpers/constants";
 
 const useStyles = makeStyles(theme => ({
   formControl: {
+    display: 'flex',
     margin: theme.spacing(3),
   },
   radioStyling: {
@@ -18,7 +19,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 export default function RadioOption(props) {
-  const { formData: { options }, handleSubmit } = props;
+  const { formData: { options }, handleSubmit, buttonStyle } = props;
   const [value, setValue] = useState('');
   const classNames = useStyles();
 
@@ -48,11 +49,14 @@ export default function RadioOption(props) {
           ))
         }
       </RadioGroup>
-      <NextButton 
-        text="Next"
-        color={getButtonColor()}
-        handleSubmit={handleSubmit}
-      />
+
+      <div className={buttonStyle}>
+        <NextButton 
+          text="Next"
+          color={getButtonColor()}
+          handleSubmit={handleSubmit}
+        />
+      </div>
     </FormControl>
   );
 };

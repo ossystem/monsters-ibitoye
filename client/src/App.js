@@ -27,7 +27,7 @@ export default function App() {
         //   handleNextPage={handleNextPage}
         // />
         <Jumbotron
-          authenticated={false}
+          authenticated={true}
         />
       );
     default:

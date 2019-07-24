@@ -30,7 +30,7 @@ const sliderStyles = () => ({
 const CustomSlider = withStyles(sliderStyles)(Slider);
 
 export default function SliderOption(props) {
-  const { formData: { options }, handleSubmit } = props;
+  const { formData: { options }, handleSubmit, buttonStyle } = props;
   const [leftText, rightText] = options;
   const [value, setValue] = useState(50);
   const classNames = useStyles();
@@ -51,7 +51,7 @@ export default function SliderOption(props) {
         />
         <p>{ rightText.option }</p>
       </div>
-      <div>
+      <div className={buttonStyle}>
         <NextButton
           text="Submit"
           color={BUTTON_COLORS.GREEN.TEXT}

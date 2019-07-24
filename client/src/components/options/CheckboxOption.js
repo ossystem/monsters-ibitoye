@@ -21,12 +21,13 @@ const CustomCheckbox = withStyles(checkBoxStyles)(Checkbox);
 
 const useStyles = makeStyles(theme => ({
   formControl: {
+    display: 'flex',
     margin: theme.spacing(3),
   },
 }));
 
 export default function CheckboxOption(props) {
-  const { formData: { options }, handleSubmit } = props;
+  const { formData: { options }, handleSubmit, buttonStyle } = props;
   const classNames = useStyles();
   const [selectedValue, setSelectedValue] = useState({});
 
@@ -66,11 +67,13 @@ export default function CheckboxOption(props) {
           ))
         }
       </FormGroup>
-      <NextButton 
-        text="Next"
-        color={getButtonColor()}
-        handleSubmit={handleSubmit}
-      />
+      <div className={buttonStyle}>
+        <NextButton 
+          text="Next"
+          color={getButtonColor()}
+          handleSubmit={handleSubmit}
+        />
+      </div>
     </FormControl>
   );
 };

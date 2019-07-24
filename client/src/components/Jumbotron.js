@@ -10,14 +10,9 @@ import Header from "./Header";
 import AuthentificationForm from './AuthentificationForm';
 
 
-import { TOGGLE_QUESTION, PROGRESS_QUESTION } from "../helpers/constants";
+import { QUESTION_CHECKBOX, QUESTION_SLIDER, QUESTION_TOGGLE, QUESTION_RADIO } from "../helpers/constants";
 
-const useStyles = makeStyles(theme => ({
-  root: {
-    // marginBottom: '500px',
-    // display: 'flex',
-    // justifyContent: 'center',
-  },
+const useStyles = makeStyles(_ => ({
   jumbotron: {
     border: '1px solid #D2D2D2',
     borderRadius: '5px',
@@ -29,7 +24,13 @@ const useStyles = makeStyles(theme => ({
   },
   question: {
     fontSize: '4em',
+    fontWeight: 400,
+    lineHeight: '1.5',
     margin: '100px 0 20px 0',
+  },
+  submitButton: {
+    display: 'flex',
+    justifyContent: 'flex-end',
   },
 }));
 
@@ -37,7 +38,7 @@ const fetchQuestion = (authenticated) => {
   let question = { question: 'Start by Signup' };
 
   if (authenticated) {
-    question = TOGGLE_QUESTION;
+    question = QUESTION_SLIDER;
   };
 
   return question;
@@ -53,13 +54,13 @@ export default function Jumbotron(props) {
   };
 
   function getOptionComponent() {
-    fetchQuestion()
     switch(question.optionType) {
       case "radio":
         return (
           <RadioOption
             handleSubmit={handleSubmit}
             formData={question}
+            buttonStyle={classNames.submitButton}
           />
         );
       case "checkbox":
@@ -67,6 +68,7 @@ export default function Jumbotron(props) {
           <CheckboxOption
             handleSubmit={handleSubmit}
             formData={question}
+            buttonStyle={classNames.submitButton}
           />
         );
       case "toggle":
@@ -74,6 +76,7 @@ export default function Jumbotron(props) {
           <ToggleOption 
             handleSubmit={handleSubmit}
             formData={question}
+            buttonStyle={classNames.submitButton}
           />
         );
       case "slider":
@@ -81,12 +84,13 @@ export default function Jumbotron(props) {
           <SliderOption 
             handleSubmit={handleSubmit}
             formData={question}
+            buttonStyle={classNames.submitButton}
           />
         );
 
       default:
         return (
-          <AuthentificationForm 
+          <AuthentificationForm
             handleSubmit={handleSubmit}
           />
         );

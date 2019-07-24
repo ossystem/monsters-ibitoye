@@ -11,6 +11,14 @@ const useStyles = makeStyles(() => ({
     flexDirection: 'row',
     alignItems: 'center',
   },
+  leftP: {
+    marginRight: '2rem',
+    fontWeight: 300,
+  },
+  rightP: {
+    marginLeft: '2rem',
+    fontWeight: 300,
+  },
 }));
 
 const switchStyles = () => ({
@@ -30,7 +38,7 @@ const switchStyles = () => ({
 const CustomSwitch = withStyles(switchStyles)(Switch);
 
 export default function ToggleOption(props) {
-  const { formData: { options }, handleSubmit } = props;
+  const { formData: { options }, handleSubmit, buttonStyle } = props;
   const [leftText, rightText] = options;
   const [selected, setSelected] = useState({});
   const classNames = useStyles();
@@ -42,15 +50,15 @@ export default function ToggleOption(props) {
   return (
     <div>
       <div className={classNames.toggle}>
-        <p>{ leftText.option }</p>
+        <p className={classNames.leftP}>{ leftText.option }</p>
         <CustomSwitch 
           checked={selected[leftText.option] === true ? true : false}
           value={leftText.option}
           onChange={handleChange(leftText.option)}
         />
-        <p>{ rightText.option }</p>
+        <p className={classNames.rightP}>{ rightText.option }</p>
       </div>
-      <div>
+      <div className={buttonStyle}>
         <NextButton 
           text="Next"
           color={BUTTON_COLORS.BLUE.TEXT}

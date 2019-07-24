@@ -32,7 +32,7 @@ const useStyles = makeStyles(theme => ({
   submitButton: {
     display: 'flex',
     justifyContent: 'flex-end'
-  }
+  },
 }));
 
 export default function AuthentificationForm(props) {
