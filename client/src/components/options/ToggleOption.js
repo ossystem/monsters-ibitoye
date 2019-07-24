@@ -15,7 +15,7 @@ const useStyles = makeStyles(() => ({
 
 const switchStyles = () => ({
   switchBase: {
-    color: COLORS.LIGHT_GREEN,
+    color: COLORS.BLACK,
     '&$checked': {
       color: BUTTON_COLORS.GREEN.HOVER_HEX_CODE,
     },

@@ -7,6 +7,8 @@ import ToggleOption from "./options/ToggleOption";
 import SliderOption from "./options/SliderOption";
 import Pagination from "./Pagination";
 import Header from "./Header";
+import AuthentificationForm from './AuthentificationForm';
+
 
 import { TOGGLE_QUESTION, PROGRESS_QUESTION } from "../helpers/constants";
 
@@ -31,16 +33,22 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const fetchQuestion = () => PROGRESS_QUESTION;
+const fetchQuestion = (authenticated) => {
+  let question = { question: 'Start by Signup' };
+
+  if (authenticated) {
+    question = TOGGLE_QUESTION;
+  };
+
+  return question;
+};
 
 export default function Jumbotron(props) {
-  // const { handleSubmit } = props;
+  const { authenticated } = props;
   const classNames = useStyles();
-  const [question, setQuestion] = useState(fetchQuestion());
+  const [question, setQuestion] = useState(fetchQuestion(authenticated));
 
   const handleSubmit = event => {
-    event.preventDefault();
-
     console.log('Submitting form now');
   };
 
@@ -78,9 +86,8 @@ export default function Jumbotron(props) {
 
       default:
         return (
-          <RadioOption
+          <AuthentificationForm 
             handleSubmit={handleSubmit}
-            formData={question}
           />
         );
     }

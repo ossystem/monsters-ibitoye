@@ -18,6 +18,7 @@ module.exports = {
   },
   COLORS: {
     LIGHT_GREEN: '#AAD38D',
+    BLACK: '#000000',
   },
   QUESTION: {
     "id": 1,
