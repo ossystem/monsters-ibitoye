@@ -13,7 +13,7 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-const sliderStyles = () => ({
+const CustomSlider = withStyles({
   root: {
     color: BUTTON_COLORS.GREEN.HEX_CODE,
     width: 200,
@@ -25,9 +25,7 @@ const sliderStyles = () => ({
       boxShadow: 'inherit',
     }
   },
-});
-
-const CustomSlider = withStyles(sliderStyles)(Slider);
+})(Slider);
 
 export default function SliderOption(props) {
   const { formData: { options }, handleSubmit, buttonStyle } = props;
@@ -36,7 +34,6 @@ export default function SliderOption(props) {
   const classNames = useStyles();
 
   const handleChange = (event, newValue) => {
-    console.log('event', event, '\n\nnewValue: ',newValue)
     setValue(newValue);
   };
 

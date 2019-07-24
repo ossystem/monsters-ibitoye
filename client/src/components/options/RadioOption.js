@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { makeStyles } from "@material-ui/core/styles";
+import { makeStyles, withStyles } from "@material-ui/core/styles";
 import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
@@ -7,6 +7,15 @@ import FormControl from "@material-ui/core/FormControl";
 
 import NextButton from "../NextButton";
 import { BUTTON_COLORS } from "../../helpers/constants";
+
+const CustomRadio = withStyles({
+  root: {
+    '&$checked': {
+      color: BUTTON_COLORS.GREEN.HEX_CODE,
+    },
+  },
+  checked: {},
+})(Radio);
 
 const useStyles = makeStyles(theme => ({
   formControl: {
@@ -45,7 +54,7 @@ export default function RadioOption(props) {
         onChange={handleChange}
       >
         { options.map(({ option, id }) => (
-            <FormControlLabel key={id} value={option} control={<Radio />} label={option} />
+            <FormControlLabel key={id} value={option} control={<CustomRadio />} label={option} />
           ))
         }
       </RadioGroup>

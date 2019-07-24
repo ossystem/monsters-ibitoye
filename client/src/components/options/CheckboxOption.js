@@ -6,12 +6,12 @@ import FormControl from "@material-ui/core/FormControl";
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 
 import NextButton from "../NextButton";
-import { BUTTON_COLORS, COLORS } from "../../helpers/constants";
+import { BUTTON_COLORS } from "../../helpers/constants";
 
 const checkBoxStyles = () => ({
   root: {
     '&$checked': {
-      color: COLORS.LIGHT_GREEN,
+      color: BUTTON_COLORS.GREEN.HEX_CODE,
     },
   },
   checked: {},
