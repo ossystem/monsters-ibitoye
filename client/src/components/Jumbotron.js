@@ -26,6 +26,10 @@ const useStyles = makeStyles(_ => ({
     left: 0,
     right: 0,
     marginBottom: '50px',
+    '@media (max-width: 320px)': {
+      position: 'static',
+      width: '300px'
+    },
   },
   jumbotron: {
     border: '1px solid #D2D2D2',
@@ -35,21 +39,41 @@ const useStyles = makeStyles(_ => ({
     height: '50%',
     margin: 'auto',
     boxShadow: '4px 13px 18px 1px rgba(0,0,0,0.24)',
+    '@media (max-width: 320px)': {
+      padding: '0 96px 56px 10px'
+    },
   },
   question: {
     fontSize: '4em',
     fontWeight: 400,
     lineHeight: '1.5',
     margin: '100px 0 20px 0',
+    '@media (max-width: 320px)': {
+      fontSize: '20px',
+      margin: '30px 0 10px 0',
+      width: '250px'
+    },
   },
   submitButton: {
     display: 'flex',
     justifyContent: 'flex-end',
+    '@media (max-width: 320px)': {
+      position: 'relative',
+      top: '70px',
+      right: '25px',
+      maxWidth: '100%',
+      marginTop: 20,
+      justifyContent: 'flex-start',
+    },
   },
   monster: {
     width: '370px',
     height: '280px',
     margin: '0 auto',
+    '@media (max-width: 320px)': {
+      width: '200px',
+      height: '150px',
+    },
   },
 }));
 
@@ -60,7 +84,6 @@ function Jumbotron(props) {
   let FormComponent = null;
 
   const goToNextPage = () => {
-    console.log('props.auth.access_token', props.auth.access_token)
     getQuestion(question.id + 1, props.auth.access_token);
 
     console.log('Submitting form now');

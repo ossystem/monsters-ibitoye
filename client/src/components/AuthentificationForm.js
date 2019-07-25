@@ -31,10 +31,20 @@ const useStyles = makeStyles(theme => ({
     marginLeft: theme.spacing(1),
     marginRight: theme.spacing(1),
     width: 300,
+    '@media (max-width: 320px)': {
+      width: 200,
+    },
   },
   submitButton: {
     display: 'flex',
-    justifyContent: 'flex-end'
+    justifyContent: 'flex-end',
+    '@media (max-width: 320px)': {
+      position: 'relative',
+      top: '170px',
+      left: '110px',
+      maxWidth: '100%',
+      marginTop: 20
+    },
   },
 }));
 

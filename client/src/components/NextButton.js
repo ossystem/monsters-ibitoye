@@ -35,6 +35,11 @@ const useStyles = makeStyles(theme => ({
     '&:focus': {
       outline: 0,
     },
+    '@media (max-width: 320px)': {
+      fontSize: 20,
+      width: '280px',
+      margin: '2px',
+    },
   },
   blueButton: {
     backgroundColor: BUTTON_COLORS.BLUE.HEX_CODE,

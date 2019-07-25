@@ -13,6 +13,13 @@ const useStyles = makeStyles(theme => ({
     width: '253px',
     alignItems: 'center',
     justifyContent: 'center',
+    boxShadow: '4px 13px 18px 1px rgba(0,0,0,0.24)',
+    '@media (max-width: 320px)': {
+      width: '260px',
+      padding: 0,
+      flexDirection: 'row',
+      flexWrap: 'wrap',
+    },
   },
   tag: {
     borderRadius: 5,
@@ -25,7 +32,12 @@ const useStyles = makeStyles(theme => ({
     position: 'relative',
     top: '10px',
     right: '110px',
-    marginBottom: '20px'
+    marginBottom: '20px',
+    boxShadow: '4px 13px 18px 1px rgba(0,0,0,0.24)',
+    '@media (max-width: 320px)': {
+      right: '70px',
+      fontSize: '30px',
+    }
   },
   answer: {
     display: 'flex',
@@ -37,7 +49,13 @@ const useStyles = makeStyles(theme => ({
     textAlign: 'center',
     alignItems: 'center',
     justifyContent: 'center',
-    marginTop: '8px'
+    marginTop: '8px',
+    '@media (max-width: 320px)': {
+      // right: '70px',
+      // fontSize: '30px',
+      paddingRight: '5px',
+      marginRight: '6px',
+    }
   },
 }));
 

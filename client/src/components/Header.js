@@ -15,9 +15,19 @@ const useStyles = makeStyles(theme => ({
   logo: {
     width: '418px',
     height: '82px',
+    '@media (max-width: 320px)': {
+      width: '80%',
+      height: '50%',
+    },
   },
   p: {
     color: COLORS.LIGHT_GREEN,
+    fontSize: '30px',
+    '@media (max-width:320px)': {
+      fontSize: '20px',
+      textAlign: 'center',
+      marginBottom: '40px'
+    },
   },
 }));
 
@@ -27,7 +37,7 @@ export default function Header() {
   return (
     <div className={classNames.header}>
       <img src={Logo} className={classNames.logo} alt="Monster logo"/>
-      <p className={classNames.p}><font size="+2">Found your monsters</font></p>
+      <p className={classNames.p}>Found your monsters</p>
     </div>
   );
 };

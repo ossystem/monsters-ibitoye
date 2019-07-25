@@ -5,7 +5,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import NextButton from "./NextButton";
 import Logo from "../assets/logo.png";
 import MonsterImageList from "../assets/page_1_monsters.png";
-import { BUTTON_COLORS, COLORS } from "../helpers/constants";
+import { BUTTON_COLORS } from "../helpers/constants";
 
 const useStyles = makeStyles(theme => ({
   home: {
@@ -16,17 +16,39 @@ const useStyles = makeStyles(theme => ({
     alignItems: 'center',
     flexDirection: 'column',
     flexWrap: 'wrap',
+    '@media (max-width: 320px)': {
+      textAlign: 'center',
+      display: 'block',
+      margin: '10px auto',
+      width: '300px',
+      height: '100%',
+      padding: 0,
+    },
   },
   logo: {
     width: '900px',
     height: '135px',
+    '@media (max-width:320px)': {
+      width: '80%',
+      height: '10%',
+    },
   },
   p: {
-    color: COLORS.LIGHT_GREEN,
+    color: BUTTON_COLORS.GREEN.HOVER_HEX_CODE,
+    fontSize: '30px',
+    '@media (max-width:320px)': {
+      fontSize: '20px',
+      textAlign: 'center',
+    },
   },
   monstersImageList: {
     width: '1160px',
     height: '660px',
+    '@media (max-width:320px)': {
+      width: '90%',
+      height: '250px',
+      margin: '50px auto'
+    },
   },
 }));
 
@@ -37,7 +59,7 @@ export default function Home(props) {
   return (
     <Container className={classNames.home}>
       <img src={Logo} className={classNames.logo} alt="Monster Logo"/>
-      <p className={classNames.p}><font size="+3">Found your monsters</font></p>
+      <p className={classNames.p}>Found your monsters</p>
       <img src={MonsterImageList} className={classNames.monstersImageList} alt="Monster List"/>
       <NextButton 
         text="Start"

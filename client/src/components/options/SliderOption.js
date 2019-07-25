@@ -8,10 +8,23 @@ import NextButton from "../NextButton";
 import { BUTTON_COLORS } from "../../helpers/constants";
 
 const useStyles = makeStyles(() => ({
+  root: {
+    '@media (max-width: 320px)': {
+      height: '75px'
+    },
+  },
   toggle: {
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
+    '@media (max-width: 320px)': {
+      flexDirection: 'column',
+      alignItems: 'center',
+      margin: 0,
+      padding: 0,
+      width: '250px',
+      height: '50px'
+    },
   },
 }));
 
@@ -20,6 +33,9 @@ const CustomSlider = withStyles({
     color: BUTTON_COLORS.GREEN.HEX_CODE,
     width: 200,
     margin: '2rem',
+    '@media (max-width: 320px)': {
+      margin: 'auto'
+    }
   },
   thumb: {
     backgroundColor: BUTTON_COLORS.GREEN.HOVER_HEX_CODE,
@@ -57,7 +73,7 @@ function SliderOption(props) {
   };
 
   return (
-    <div>
+    <div className={classNames.root}>
       <div className={classNames.toggle}>
         <p>{ leftText.option }</p>
         <CustomSlider 

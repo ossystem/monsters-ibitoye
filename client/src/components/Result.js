@@ -7,12 +7,16 @@ import Header from "./Header";
 import ResultBox from "./ResultBox";
 // import NextButton from "./NextButton";
 
-import { EMAIL_RECEIVER } from "../helpers/constants";
+import { EMAIL_RECEIVER, ANSWERS } from "../helpers/constants";
 import ResultImage from "../assets/page_9_monster.png";
 
 const useStyles = makeStyles(theme => ({
   root: {
     margin: '70px 65px',
+    '@media (max-width: 320px)': {
+      margin: 0,
+      padding: 0
+    }
   },
   header: {
     display: 'flex',
@@ -23,7 +27,12 @@ const useStyles = makeStyles(theme => ({
   h2: {
     fontSize: '60px',
     textAlign: 'center',
-    fontWeight: 400
+    fontWeight: 400,
+    '@media (max-width: 320px)': {
+      fontSize: '25px',
+      lineHeight: '1.5',
+      margin: '0 30px'
+    }
   },
   result: {
     display: 'flex',
@@ -31,13 +40,25 @@ const useStyles = makeStyles(theme => ({
     padding: '0 50px',
     flexWrap: 'wrap',
     justifyContent: 'space-between',
-    margin: '0 100px'
+    margin: '0 100px',
+    '@media (max-width: 320px)': {
+      flexDirection: 'column-reverse',
+      margin: '20px 0',
+      padding: 0,
+      justifyContent: 'center',
+      alignItems: 'center'
+    },
   },
   resultImage: {
     width: '530px',
     height: '600px',
     margin: '100px 150px 0 0',
     alignItems: 'center',
+    '@media (max-width: 320px)': {
+      width: '130px',
+      height: '200px',
+      margin: '0 0 30px 0'
+    },
   },
 }));
 

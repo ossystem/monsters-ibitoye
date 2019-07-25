@@ -8,18 +8,34 @@ import NextButton from "../NextButton";
 import { BUTTON_COLORS, COLORS } from "../../helpers/constants";
 
 const useStyles = makeStyles(() => ({
+  root: {
+    '@media (max-width: 320px)': {
+      height: '50px'
+    },
+  },
   toggle: {
     display: 'flex',
     flexDirection: 'row',
-    alignItems: 'center',
+    '@media (max-width: 320px)': {
+      margin: 0,
+      padding: 0,
+      width: '250px',
+      height: '30px'
+    },
   },
   leftP: {
     marginRight: '2rem',
     fontWeight: 300,
+    '@media (max-width: 320px)': {
+      marginRight: '10px',
+    },
   },
   rightP: {
     marginLeft: '2rem',
     fontWeight: 300,
+    '@media (max-width: 320px)': {
+      marginLeft: '10px',
+    },
   },
 }));
 
@@ -69,7 +85,7 @@ function ToggleOption(props) {
   };
 
   return (
-    <div>
+    <div className={classNames.root}>
       <div className={classNames.toggle}>
         <p className={classNames.leftP}>{ leftText.option }</p>
         <CustomSwitch 

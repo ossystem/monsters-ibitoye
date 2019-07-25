@@ -18,6 +18,18 @@ const useStyles = makeStyles(theme => ({
     marginBottom: '20px',
     maxWidth: '10rem',
     boxShadow: '4px 13px 18px 1px rgba(0,0,0,0.24)',
+    '@media (max-width:320px)': {
+      fontSize: '30px',
+      width: '100%',
+      height: '50px',
+      right: '20px',
+      marginBottom: '40px',
+      lineHeight: '1.6',
+      textAlign: 'left',
+      paddingLeft: '20px',
+      display: 'flex',
+      alignItems: 'center'
+    },
   },
 }));
 
