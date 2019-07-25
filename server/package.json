@@ -1,7 +1,7 @@
 {
-  "name": "monster",
+  "name": "monster-questionnaire-api",
   "version": "1.0.0",
-  "description": "Monster questionnair",
+  "description": "Monster questionnair API",
   "main": "index.js",
   "scripts": {
     "debug": "nodemon bin/server.js",

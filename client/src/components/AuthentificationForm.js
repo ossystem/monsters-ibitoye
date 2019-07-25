@@ -88,7 +88,7 @@ function AuthentificationForm(props) {
     let authFailedError = '';
   
     if (name === 'email') {
-      const pattern = /[a-zA-Z0-9]+[\.]?([a-zA-Z0-9]+)?[\@][a-z]{3,9}[\.][a-z]{2,5}/g;
+      const pattern = /[a-zA-Z0-9]+[.]?([a-zA-Z0-9]+)?[@][a-z]{3,9}[.][a-z]{2,5}/g;
 
       if (!pattern.test(event.target.value)) {
         return setValues({ 

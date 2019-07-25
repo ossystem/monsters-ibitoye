@@ -5,9 +5,8 @@ import { makeStyles } from "@material-ui/core/styles";
 import { submitAnswers } from "../actions/answerAction";
 import Header from "./Header";
 import ResultBox from "./ResultBox";
-// import NextButton from "./NextButton";
 
-import { EMAIL_RECEIVER, ANSWERS } from "../helpers/constants";
+import { EMAIL_RECEIVER } from "../helpers/constants";
 import ResultImage from "../assets/page_9_monster.png";
 
 const useStyles = makeStyles(theme => ({
