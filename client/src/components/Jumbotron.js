@@ -60,7 +60,8 @@ function Jumbotron(props) {
   let FormComponent = null;
 
   const goToNextPage = () => {
-    getQuestion(question.id + 1);
+    console.log('props.auth.access_token', props.auth.access_token)
+    getQuestion(question.id + 1, props.auth.access_token);
 
     console.log('Submitting form now');
   };
@@ -122,8 +123,8 @@ function Jumbotron(props) {
         <img src={monsterImage} className={classNames.monster} alt="Monster crown"/>
         <div className={classNames.jumbotron}>
           <Pagination 
-            min={1}
-            max={5}
+            min={question.id < 2 ? question.id + 1 : question.id}
+            max={4}
           />
           <p className={classNames.question}>{ question.question }</p>
           { FormComponent }
@@ -136,6 +137,7 @@ function Jumbotron(props) {
 const mapStateToProps = (state) => ({
   question: state.question,
   step: state.step,
+  auth: state.auth,
 });
 
 export default connect(

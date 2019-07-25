@@ -1,5 +1,7 @@
 module.exports = {
   PROJECT_NAME: 'monster',
+  EMAIL_RECEIVER: 'monsters@trialjectory.com',
+  PROXY: 'http://localhost:5000',
   BUTTON_COLORS: {
     BLUE: {
       TEXT: 'blue',

@@ -1,10 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { connect } from "react-redux";
 import { makeStyles, withStyles } from "@material-ui/core/styles";
 import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormControl from "@material-ui/core/FormControl";
 
+import { submitAnswer } from "../../actions/answerAction";
 import NextButton from "../NextButton";
 import { BUTTON_COLORS } from "../../helpers/constants";
 
@@ -27,17 +29,28 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function RadioOption(props) {
+function RadioOption(props) {
   const { formData: { options }, goToNextPage, buttonStyle } = props;
   const [value, setValue] = useState('');
   const classNames = useStyles();
+
+  useEffect(() => {
+    const userAnswersLength = props.answer.answers.length;
+    const userAnswers = props.answer.answers[userAnswersLength - 1];
+
+    if (userAnswers === value) {
+      goToNextPage();
+    }
+  }, [goToNextPage, props.answer.answers, value]);
 
   const handleChange = event => {
     setValue(event.target.value);
   }
 
   const handleSubmit = event => {
-    goToNextPage();
+    const [selectedOption] = options.filter(o => o.option === value);
+
+    props.submitAnswer({ questionOptionsId: [selectedOption.id] });
   }
 
   const getButtonColor = () => {
@@ -73,3 +86,12 @@ export default function RadioOption(props) {
     </FormControl>
   );
 };
+
+const mapStateToProps = (state) => ({
+  answer: state.answer,
+});
+
+export default connect(
+  mapStateToProps,
+  { submitAnswer },
+)(RadioOption);

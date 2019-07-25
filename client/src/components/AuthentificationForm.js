@@ -52,8 +52,6 @@ function AuthentificationForm(props) {
   useEffect(() => {
     const authError = props.auth.error;
     if (props.auth.error && values.authFailedError !== authError) {
-      console.log('prev error', prevError);
-      console.log('next error', authError);
       setValues({
         ...values,
         authFailedError: props.auth.error,
@@ -77,7 +75,8 @@ function AuthentificationForm(props) {
 
   const handleChange = name => event => {
     let emailError = '';
-
+    let authFailedError = '';
+  
     if (name === 'email') {
       const pattern = /[a-zA-Z0-9]+[\.]?([a-zA-Z0-9]+)?[\@][a-z]{3,9}[\.][a-z]{2,5}/g;
 
@@ -96,6 +95,7 @@ function AuthentificationForm(props) {
     setValues({ 
       ...values,
       emailError,
+      authFailedError,
       [name]: event.target.value,
     });
   };

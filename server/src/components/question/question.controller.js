@@ -56,16 +56,17 @@ const getResult = async (req, res, next) => {
  * @apiVersion 1.0.0
  * @apiName submit answer
  * @apiGroup Question
- * @apiParam {Number} questionOptionId Chosen answer id
+ * @apiParam {Array} questionOptionsId Array of answer id
  * @apiError 400 Bad request
  * @apiErrorExample {json} Error-Response:
  * { "success": false, "status": "400", "message": "Bad request" }
  */
 const submit = async (req, res, next) => {
   try {
-    const { body: { questionOptionId }, user: { sub: authZeroId } } = req;
+    const { body: { questionOptionsId }, user: { sub: authZeroId } } = req;
+    let answers = [];
 
-    if (!questionOptionId) {
+    if (!questionOptionsId || !questionOptionsId.length) {
       throw new BadRequest('Question option id is required');
     }
 
@@ -74,16 +75,20 @@ const submit = async (req, res, next) => {
     if (!userData) {
       throw new BadRequest('User not found');
     }
+    
+    for (const questionOptionId of questionOptionsId) {
+      const chosenOption = await QuestionService.getQuestionOption(questionOptionId);
+  
+      const answer = await QuestionService.insertAnswer({
+        questionId: chosenOption.questionId,
+        option: chosenOption.option,
+        chosenBy: userData.id,
+      });
 
-    const chosenOption = await QuestionService.getQuestionOption(questionOptionId);
+      answers.push(answer);
+    }
 
-    const answer = await QuestionService.insertAnswer({
-      questionId: chosenOption.questionId,
-      option: chosenOption.option,
-      chosenBy: userData.id,
-    });
-
-    return res.send({ success: true, answer });
+    return res.send({ success: true, answer: answers });
   } catch (error) {
     next(error);
   }

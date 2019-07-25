@@ -1,10 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { connect } from "react-redux";
 import { makeStyles, withStyles } from "@material-ui/core/styles";
 import Checkbox from '@material-ui/core/Checkbox';
 import FormGroup from '@material-ui/core/FormGroup';
 import FormControl from "@material-ui/core/FormControl";
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 
+import { submitAnswer } from "../../actions/answerAction";
 import NextButton from "../NextButton";
 import { BUTTON_COLORS } from "../../helpers/constants";
 
@@ -26,10 +28,40 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function CheckboxOption(props) {
+function CheckboxOption(props) {
   const { formData: { options }, goToNextPage, buttonStyle } = props;
   const classNames = useStyles();
   const [selectedValue, setSelectedValue] = useState({});
+
+  useEffect(() => {
+    const selectedOptions = options.filter(o => Object.keys(selectedValue).includes(`${o.id}`));
+    const moreThanOneOption = selectedOptions.length > 1 ? true : false;
+    const lastSelecOption = selectedOptions[selectedOptions.length - 1];
+    const selectedOptionsInString = selectedOptions
+      .reduce((prev, curr) => {
+        if (moreThanOneOption) {
+          if (curr.option === lastSelecOption.option) {
+            return prev.concat(' ', `& ${curr.option}`).replace(/^,\s/, '');
+          } else {
+            return prev.concat(', ', curr.option).replace(/^,\s/, '');
+          }
+        } else {
+          return prev.concat(curr.option, '');
+        }
+      }, '')
+      .trim();
+
+    const userAnswersLengthFromProps = props.answer.answers.length;
+    const userAnswersFromProps = props.answer.answers[userAnswersLengthFromProps - 1];
+    console.log('selectedOptionsInString', selectedOptionsInString)
+    console.log('userAnswersFromProps', userAnswersFromProps)
+
+    if (userAnswersFromProps === selectedOptionsInString) {
+      console.log('next page')
+      goToNextPage();
+    }
+
+  }, [goToNextPage, options, props.answer.answers, selectedValue]);
 
   const handleChange = name => event => {
     const newValue = { ...selectedValue, [name]: event.target.checked };
@@ -38,7 +70,9 @@ export default function CheckboxOption(props) {
   };
 
   const handleSubmit = event => {
-    goToNextPage();
+    const questionOptionsId = Object.keys(selectedValue);
+
+    props.submitAnswer({ questionOptionsId });
   };
 
   const getButtonColor = () => {
@@ -81,3 +115,12 @@ export default function CheckboxOption(props) {
     </FormControl>
   );
 };
+
+const mapStateToProps = (state) => ({
+  answer: state.answer,
+});
+
+export default connect(
+  mapStateToProps,
+  { submitAnswer },
+)(CheckboxOption);

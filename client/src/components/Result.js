@@ -1,11 +1,13 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { connect } from "react-redux";
 import { makeStyles } from "@material-ui/core/styles";
 
+import { submitAnswers } from "../actions/answerAction";
 import Header from "./Header";
 import ResultBox from "./ResultBox";
-import NextButton from "./NextButton";
+// import NextButton from "./NextButton";
 
-import { ANSWERS, BUTTON_COLORS } from "../helpers/constants";
+import { EMAIL_RECEIVER } from "../helpers/constants";
 import ResultImage from "../assets/page_9_monster.png";
 
 const useStyles = makeStyles(theme => ({
@@ -39,13 +41,31 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function Result(props) {
-  const { answers = ANSWERS } = props;
+function Result(props) {
+  const { answer: { answers, emailSent } } = props;
   const classNames = useStyles();
 
-  const logout = (event) => {
-    console.log('Log out');
-  };
+  useEffect(() => {
+    if (!emailSent) {
+      const body = answers
+        .reduce((prev, curr, i) => prev.concat(`Question ${i+1}) ${curr}<br>`, ''), '')
+        .trim()
+        .concat('<br> Have a great day 🙂!');
+      
+        const email = {
+        "auth": "2495sjdf932la_3495=+473345",
+        "to": [EMAIL_RECEIVER],
+        "emailBody": `A user just answered the monster questionnaire.<br> ${body}`,
+        "title": "Monster answer"
+      }
+      props.submitAnswers(email);
+    }
+  }, [answers, emailSent, props]);
+
+  // TODO
+  // const logout = (event) => {
+    // console.log('Log out');
+  // };
 
   return (
     <div className={classNames.root}>
@@ -65,3 +85,12 @@ export default function Result(props) {
     </div>
   );
 };
+
+const mapStateToProps = (state) => ({
+  answer: state.answer,
+});
+
+export default connect(
+  mapStateToProps,
+  { submitAnswers },
+  )(Result);

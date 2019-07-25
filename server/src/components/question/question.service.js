@@ -16,7 +16,7 @@ const getQuestion = async id => {
 
 const getQuestionOption = async id => {
   return QuestionOptionModel.findOne({
-    where: { chosenBy: id }
+    where: { id }
   });
 };
 

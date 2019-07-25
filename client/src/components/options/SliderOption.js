@@ -1,7 +1,9 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
+import { connect } from "react-redux";
 import { makeStyles, withStyles } from "@material-ui/core/styles";
 import Slider from '@material-ui/core/Slider';
 
+import { submitAnswer } from "../../actions/answerAction";
 import NextButton from "../NextButton";
 import { BUTTON_COLORS } from "../../helpers/constants";
 
@@ -27,18 +29,31 @@ const CustomSlider = withStyles({
   },
 })(Slider);
 
-export default function SliderOption(props) {
+function SliderOption(props) {
   const { formData: { options }, goToNextPage, buttonStyle } = props;
   const [leftText, rightText] = options;
   const [value, setValue] = useState(50);
   const classNames = useStyles();
+
+  useEffect(() => {
+    const selectedOptions = value <= 50 ? leftText.option : rightText.option;
+
+    const userAnswersLengthFromProps = props.answer.answers.length;
+    const userAnswersFromProps = props.answer.answers[userAnswersLengthFromProps - 1];
+
+    if (selectedOptions === userAnswersFromProps) {
+      goToNextPage();
+    }
+  }, [goToNextPage, leftText.option, props.answer.answers, rightText.option, value]);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
 
   const handleSubmit = event => {
-    goToNextPage();
+    const questionOptionsId = value <= 50 ? [leftText.id] : [rightText.id];
+
+    props.submitAnswer({ questionOptionsId });
   };
 
   return (
@@ -62,3 +77,12 @@ export default function SliderOption(props) {
     </div>
   );
 };
+
+const mapStateToProps = (state) => ({
+  answer: state.answer,
+});
+
+export default connect(
+  mapStateToProps,
+  { submitAnswer },
+)(SliderOption);
