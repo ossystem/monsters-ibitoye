@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: front
+  namespace: monster-${ENV}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: front
+  template:
+    metadata:
+      labels:
+        app: front
+    spec:
+      containers:
+      - image: ${FRONT_IMAGE_NAME}
+        imagePullPolicy: Always
+        name: front
+        envFrom:
+        - configMapRef:
+            name: ${ENV}
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: back
+  namespace: monster-${ENV}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: back
+  template:
+    metadata:
+      labels:
+        app: back
+    spec:
+      containers:
+      - image: ${BACK_IMAGE_NAME}
+        imagePullPolicy: Always
+        name: back
+        envFrom:
+        - configMapRef:
+            name: ${ENV}
