@@ -2,11 +2,12 @@ import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import { makeStyles } from "@material-ui/core/styles";
 
-import { submitAnswers } from "../actions/answerAction";
 import Header from "./Header";
 import ResultBox from "./ResultBox";
+import NextButton from "./NextButton";
 
-import { EMAIL_RECEIVER } from "../helpers/constants";
+import { submitAnswers } from "../actions/answerAction";
+import { EMAIL_RECEIVER, BUTTON_COLORS } from "../helpers/constants";
 import ResultImage from "../assets/page_9_monster.png";
 
 const useStyles = makeStyles(theme => ({
@@ -59,19 +60,29 @@ const useStyles = makeStyles(theme => ({
       margin: '0 0 30px 0'
     },
   },
+  submitButton: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+      '@media (max-width: 320px)': {
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
+    },
+  }
 }));
 
 function Result(props) {
-  const { answer: { answers, emailSent } } = props;
+  const { answer: { answers, emailSent }, handleNextPage } = props;
   const classNames = useStyles();
 
   useEffect(() => {
-    if (!emailSent) {
+    if (!emailSent && answers.length) {
       const body = answers
         .reduce((prev, curr, i) => prev.concat(`Question ${i+1}) ${curr}<br>`, ''), '')
         .trim()
         .concat('<br> Have a great day 🙂!');
-      
+
         const email = {
         "auth": "2495sjdf932la_3495=+473345",
         "to": [EMAIL_RECEIVER],
@@ -82,24 +93,23 @@ function Result(props) {
     }
   }, [answers, emailSent, props]);
 
-  // TODO
-  // const logout = (event) => {
-  // };
+  // TODO Add logout
 
   return (
     <div className={classNames.root}>
-      {/* <div className={classNames.header}> */}
-        <Header />
-        {/* <NextButton 
-          text="Logout"
-          color={BUTTON_COLORS.BLUE.TEXT}
-          handleSubmit={logout}
-        /> */}
-      {/* </div> */}
+      <Header />
       <h2 className={classNames.h2}>Excellent, congratulations, you're a monster</h2>
       <div className={classNames.result}>
         <ResultBox answers={answers} />
         <img src={ResultImage} className={classNames.resultImage} alt="Result page"/>
+      </div>
+
+      <div className={classNames.submitButton}>
+        <NextButton 
+          text="Try again"
+          color={BUTTON_COLORS.BLUE.TEXT}
+          handleSubmit={handleNextPage}
+        />
       </div>
     </div>
   );

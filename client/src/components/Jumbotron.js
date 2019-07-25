@@ -10,7 +10,7 @@ import SliderOption from "./options/SliderOption";
 import Pagination from "./Pagination";
 import Header from "./Header";
 
-import { getQuestion } from "../actions/questionActions";
+import { getQuestion } from "../actions/questionAction";
 import PageTwoMonster from "../assets/page_2_monster.png";
 import PageThreeMonster from "../assets/page_3_monster.png";
 import PageFourMonster from "../assets/page_4_monster.png";
@@ -78,13 +78,18 @@ const useStyles = makeStyles(_ => ({
 }));
 
 function Jumbotron(props) {
-  const { question, getQuestion, handleNextPage } = props;
+  const { question, getQuestion, handleNextPage, authenticateUser } = props;
   const classNames = useStyles();
   let monsterImage = PageTwoMonster;
   let FormComponent = null;
 
+  if (!question.question && authenticateUser === false) {
+    getQuestion(1, props.auth.access_token);    
+  }
+
   const goToNextPage = () => {
-    getQuestion(question.id + 1, props.auth.access_token);
+    const questionId = question.id ? question.id + 1 : 1;
+    getQuestion(questionId, props.auth.access_token);
   };
 
   switch(question.optionType) {
@@ -129,28 +134,32 @@ function Jumbotron(props) {
       );
       break;
     default:
-      FormComponent = (
-        <AuthentificationForm
-          goToNextPage={goToNextPage}
+      monsterImage = PageEightMonster;
+      FormComponent = authenticateUser === false 
+        ? FormComponent
+        : <AuthentificationForm
+          goToNextPage={handleNextPage}
         />
-      );
       break;
   }
 
   return (
     <>
       <Header />
-      <div className={classNames.groupedJumbotron}>
-        <img src={monsterImage} className={classNames.monster} alt="Monster crown"/>
-        <div className={classNames.jumbotron}>
-          <Pagination 
-            min={question.id < 2 ? question.id + 1 : question.id}
-            max={4}
-          />
-          <p className={classNames.question}>{ question.question }</p>
-          { FormComponent }
+      { 
+        FormComponent &&
+        <div className={classNames.groupedJumbotron}>
+          <img src={monsterImage} className={classNames.monster} alt="Monster crown"/>
+          <div className={classNames.jumbotron}>
+            <Pagination 
+              min={question.id < 2 ? question.id + 1 : question.id}
+              max={4}
+            />
+            <p className={classNames.question}>{ question.question }</p>
+            {  FormComponent }
+          </div>
         </div>
-      </div>
+      }
     </>
   );
 };

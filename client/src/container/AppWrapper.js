@@ -9,9 +9,13 @@ import { setStep } from "../actions/stepAction";
 
 function AppWrapper(props) {
   const handleNextPage = (event) => {
-    if (props.step === STEPS.QUESTIONS) {
-    props.setStep(STEPS.RESULT);
-    } else {
+    if (props.step === STEPS.HOME) {
+      props.setStep(STEPS.AUTH);
+    } else if (props.step === STEPS.AUTH) {
+      props.setStep(STEPS.QUESTIONS);
+    } else if (props.step === STEPS.QUESTIONS) {
+      props.setStep(STEPS.RESULT);
+    }  else {
       props.setStep(STEPS.QUESTIONS);
     }
   };
@@ -19,8 +23,10 @@ function AppWrapper(props) {
   switch(props.step) {
     case STEPS.HOME:
       return <Home handleNextPage={handleNextPage}/>;
+    case STEPS.AUTH:
+      return <Jumbotron handleNextPage={handleNextPage} authenticateUser={true} />;
     case STEPS.QUESTIONS:
-      return <Jumbotron handleNextPage={handleNextPage} />;
+      return <Jumbotron handleNextPage={handleNextPage} authenticateUser={false} />;
     case STEPS.RESULT:
       return <Result handleNextPage={handleNextPage}/>;
     default:

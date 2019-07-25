@@ -1,6 +1,7 @@
 module.exports = {
   PROJECT_NAME: 'monster',
-  EMAIL_RECEIVER: 'monsters@trialjectory.com',
+  // EMAIL_RECEIVER: 'monsters@trialjectory.com',
+  EMAIL_RECEIVER: 'b.ibitoye@ossystem.com.ua',
   PROXY: process.env.REACT_APP_PROXY,
   BUTTON_COLORS: {
     BLUE: {
@@ -33,7 +34,8 @@ module.exports = {
   },
   QUESTION_AUTH: {
     id: 0, 
-    question: 'Start by Signup' 
+    question: 'Start by Signup',
+    optionType: 'auth',
   },
   QUESTION_CHECKBOX: {
     "id": 2,
