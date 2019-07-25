@@ -59,11 +59,8 @@ function CheckboxOption(props) {
 
     const userAnswersLengthFromProps = props.answer.answers.length;
     const userAnswersFromProps = props.answer.answers[userAnswersLengthFromProps - 1];
-    console.log('selectedOptionsInString', selectedOptionsInString)
-    console.log('userAnswersFromProps', userAnswersFromProps)
 
     if (userAnswersFromProps === selectedOptionsInString) {
-      console.log('next page')
       goToNextPage();
     }
 

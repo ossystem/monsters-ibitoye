@@ -85,8 +85,6 @@ function Jumbotron(props) {
 
   const goToNextPage = () => {
     getQuestion(question.id + 1, props.auth.access_token);
-
-    console.log('Submitting form now');
   };
 
   switch(question.optionType) {

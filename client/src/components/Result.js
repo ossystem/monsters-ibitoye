@@ -85,7 +85,6 @@ function Result(props) {
 
   // TODO
   // const logout = (event) => {
-    // console.log('Log out');
   // };
 
   return (

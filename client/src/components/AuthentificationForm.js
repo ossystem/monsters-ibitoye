@@ -91,7 +91,6 @@ function AuthentificationForm(props) {
       const pattern = /[a-zA-Z0-9]+[\.]?([a-zA-Z0-9]+)?[\@][a-z]{3,9}[\.][a-z]{2,5}/g;
 
       if (!pattern.test(event.target.value)) {
-        console.log(values);
         return setValues({ 
           ...values,
           [name]: event.target.value,
