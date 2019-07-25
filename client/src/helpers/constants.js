@@ -20,8 +20,21 @@ module.exports = {
     LIGHT_GREEN: '#AAD38D',
     BLACK: '#000000',
   },
+  STEPS: {
+    HOME: 'HOME',
+    AUTH: 'AUTH',
+    QUESTIONS: 'QUESTIONS',
+    RESULT: 'RESULT',
+  },
+  ERRORS: {
+    AUTH_FAILED: 'Email or Password is incorrect',
+  },
+  QUESTION_AUTH: {
+    id: 0, 
+    question: 'Start by Signup' 
+  },
   QUESTION_CHECKBOX: {
-    "id": 1,
+    "id": 2,
     "question": "Are you afraid of the dark?",
     "optionType": "checkbox",
     "updatedAt": "2019-07-16T19:34:01.000Z",

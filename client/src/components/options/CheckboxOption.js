@@ -27,7 +27,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 export default function CheckboxOption(props) {
-  const { formData: { options }, handleSubmit, buttonStyle } = props;
+  const { formData: { options }, goToNextPage, buttonStyle } = props;
   const classNames = useStyles();
   const [selectedValue, setSelectedValue] = useState({});
 
@@ -35,6 +35,10 @@ export default function CheckboxOption(props) {
     const newValue = { ...selectedValue, [name]: event.target.checked };
 
     setSelectedValue(newValue);
+  };
+
+  const handleSubmit = event => {
+    goToNextPage();
   };
 
   const getButtonColor = () => {

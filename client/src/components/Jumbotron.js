@@ -1,15 +1,16 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
+import { connect } from "react-redux";
 import { makeStyles } from "@material-ui/core/styles";
 
+import AuthentificationForm from './AuthentificationForm';
 import RadioOption from "./options/RadioOption";
 import CheckboxOption from "./options/CheckboxOption";
 import ToggleOption from "./options/ToggleOption";
 import SliderOption from "./options/SliderOption";
 import Pagination from "./Pagination";
 import Header from "./Header";
-import AuthentificationForm from './AuthentificationForm';
 
-import { QUESTION_CHECKBOX, QUESTION_SLIDER, QUESTION_TOGGLE, QUESTION_RADIO } from "../helpers/constants";
+import { getQuestion } from "../actions/questionActions";
 import PageTwoMonster from "../assets/page_2_monster.png";
 import PageThreeMonster from "../assets/page_3_monster.png";
 import PageFourMonster from "../assets/page_4_monster.png";
@@ -52,24 +53,15 @@ const useStyles = makeStyles(_ => ({
   },
 }));
 
-const fetchQuestion = (authenticated) => {
-  let question = { question: 'Start by Signup' };
-
-  if (authenticated) {
-    question = QUESTION_SLIDER;
-  };
-
-  return question;
-};
-
-export default function Jumbotron(props) {
-  const { authenticated } = props;
+function Jumbotron(props) {
+  const { question, getQuestion, handleNextPage } = props;
   const classNames = useStyles();
-  const [question, setQuestion] = useState(fetchQuestion(authenticated));
   let monsterImage = PageTwoMonster;
   let FormComponent = null;
 
-  const handleSubmit = event => {
+  const goToNextPage = () => {
+    getQuestion(question.id + 1);
+
     console.log('Submitting form now');
   };
 
@@ -78,7 +70,7 @@ export default function Jumbotron(props) {
       monsterImage = PageThreeMonster;
       FormComponent = (
         <RadioOption
-          handleSubmit={handleSubmit}
+          goToNextPage={goToNextPage}
           formData={question}
           buttonStyle={classNames.submitButton}
         />
@@ -88,7 +80,7 @@ export default function Jumbotron(props) {
       monsterImage = PageFourMonster;
       FormComponent = (
         <CheckboxOption
-          handleSubmit={handleSubmit}
+          goToNextPage={goToNextPage}
           formData={question}
           buttonStyle={classNames.submitButton}
         />
@@ -98,7 +90,7 @@ export default function Jumbotron(props) {
       monsterImage = PageSevenMonster;
       FormComponent = (
         <ToggleOption 
-          handleSubmit={handleSubmit}
+          goToNextPage={goToNextPage}
           formData={question}
           buttonStyle={classNames.submitButton}
         />
@@ -108,7 +100,7 @@ export default function Jumbotron(props) {
       monsterImage = PageEightMonster;
       FormComponent = (
         <SliderOption 
-          handleSubmit={handleSubmit}
+          goToNextPage={handleNextPage}
           formData={question}
           buttonStyle={classNames.submitButton}
         />
@@ -117,7 +109,7 @@ export default function Jumbotron(props) {
     default:
       FormComponent = (
         <AuthentificationForm
-          handleSubmit={handleSubmit}
+          goToNextPage={goToNextPage}
         />
       );
       break;
@@ -140,3 +132,13 @@ export default function Jumbotron(props) {
     </>
   );
 };
+
+const mapStateToProps = (state) => ({
+  question: state.question,
+  step: state.step,
+});
+
+export default connect(
+  mapStateToProps,
+  { getQuestion },
+)(Jumbotron);

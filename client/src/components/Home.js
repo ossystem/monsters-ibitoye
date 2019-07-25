@@ -42,7 +42,7 @@ export default function Home(props) {
       <NextButton 
         text="Start"
         color={BUTTON_COLORS.BLUE.TEXT}
-        handleNextPage={handleNextPage}
+        handleSubmit={handleNextPage}
       />
     </Container>
   );

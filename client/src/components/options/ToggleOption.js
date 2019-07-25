@@ -38,13 +38,17 @@ const switchStyles = () => ({
 const CustomSwitch = withStyles(switchStyles)(Switch);
 
 export default function ToggleOption(props) {
-  const { formData: { options }, handleSubmit, buttonStyle } = props;
+  const { formData: { options }, goToNextPage, buttonStyle } = props;
   const [leftText, rightText] = options;
   const [selected, setSelected] = useState({});
   const classNames = useStyles();
 
   const handleChange = name => event => {
     setSelected({ ...selected, [name]: event.target.checked });
+  };
+
+  const handleSubmit = event => {
+    goToNextPage();
   };
 
   return (

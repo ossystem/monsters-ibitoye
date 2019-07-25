@@ -1,12 +1,14 @@
+const proxy = "http://localhost:5000";
+
 export function getData(url = ``) {
-  return fetch(url, {
+  return fetch(proxy.concat('', url), {
     method: "GET"
   })
   .then(response => response.json());
 }
 
 export function postData(url = ``, data = {}) {
-  return fetch(url, {
+  return fetch(proxy.concat('', url), {
     method: "POST",
     body: data,
     mode: "cors",
@@ -20,7 +22,7 @@ export function postData(url = ``, data = {}) {
 }
 
 export function putData(url = ``, data = {}) {
-  return fetch(url, {
+  return fetch(proxy.concat('', url), {
     method: "PUT",
     body: data,
     mode: "cors",

@@ -28,13 +28,17 @@ const CustomSlider = withStyles({
 })(Slider);
 
 export default function SliderOption(props) {
-  const { formData: { options }, handleSubmit, buttonStyle } = props;
+  const { formData: { options }, goToNextPage, buttonStyle } = props;
   const [leftText, rightText] = options;
   const [value, setValue] = useState(50);
   const classNames = useStyles();
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
+  };
+
+  const handleSubmit = event => {
+    goToNextPage();
   };
 
   return (

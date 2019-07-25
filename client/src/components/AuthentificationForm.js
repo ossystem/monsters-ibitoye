@@ -1,7 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { connect } from "react-redux";
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import NextButton from "./NextButton";
+import { logIn } from "../actions/authAction";
+import { usePrevious } from "../hooks";
 
 import { BUTTON_COLORS } from "../helpers/constants";
 
@@ -35,15 +38,34 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function AuthentificationForm(props) {
-  const { handleSubmit } = props;
+function AuthentificationForm(props) {
+  const { goToNextPage } = props;
   const [values, setValues] = useState({
     email: '',
     password: '',
     emailError: '',
-    authFailedError: '',
+    authFailedError: props.auth.error,
   });
   const classNames = useStyles();
+  const prevError = usePrevious(props.auth.error);
+
+  useEffect(() => {
+    const authError = props.auth.error;
+    if (props.auth.error && values.authFailedError !== authError) {
+      console.log('prev error', prevError);
+      console.log('next error', authError);
+      setValues({
+        ...values,
+        authFailedError: props.auth.error,
+      });
+      return;
+    }
+
+    if (props.auth.access_token) {
+      goToNextPage();
+    }
+
+  }, [goToNextPage, prevError, props.auth, values]);
 
   const getButtonColor = () => {
     if (values.email.length && values.password.length && !values.emailError.length) {
@@ -54,7 +76,7 @@ export default function AuthentificationForm(props) {
   };
 
   const handleChange = name => event => {
-    let emailError = 'Email is not valid';
+    let emailError = '';
 
     if (name === 'email') {
       const pattern = /[a-zA-Z0-9]+[\.]?([a-zA-Z0-9]+)?[\@][a-z]{3,9}[\.][a-z]{2,5}/g;
@@ -64,7 +86,7 @@ export default function AuthentificationForm(props) {
         return setValues({ 
           ...values,
           [name]: event.target.value,
-          emailError,
+          emailError: 'Email is not valid',
         });
       } else {
         emailError = ''
@@ -78,12 +100,13 @@ export default function AuthentificationForm(props) {
     });
   };
 
-  const authenticateUser = event => {
+  const authenticateUser = async event => {
     event.preventDefault();
-    // Send username and password to API
-    // if failed then update values.authError
-    // if passed then send update props with token and authStatus
-    handleSubmit()
+
+    props.logIn({
+      email: values.email,
+      password: values.password,
+    });
   };
 
   return (
@@ -122,3 +145,12 @@ export default function AuthentificationForm(props) {
     </form>
   );
 };
+
+const mapStateToProps = (state) => ({
+  auth: state.auth,
+});
+
+export default connect(
+  mapStateToProps,
+  { logIn },
+  )(AuthentificationForm);

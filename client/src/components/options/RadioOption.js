@@ -28,12 +28,16 @@ const useStyles = makeStyles(theme => ({
 }));
 
 export default function RadioOption(props) {
-  const { formData: { options }, handleSubmit, buttonStyle } = props;
+  const { formData: { options }, goToNextPage, buttonStyle } = props;
   const [value, setValue] = useState('');
   const classNames = useStyles();
 
   const handleChange = event => {
     setValue(event.target.value);
+  }
+
+  const handleSubmit = event => {
+    goToNextPage();
   }
 
   const getButtonColor = () => {
