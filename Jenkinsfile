@@ -7,13 +7,13 @@ node {
     stage("build") {
         dir('client') {
             docker.withRegistry("https://docker.ossystem.ua") {
-                front_image = docker.build("monster-questionnaire-front:${env.BUILD_TAG}", ".")
+                front_image = docker.build("monsters/ibitoye-front:${env.BUILD_TAG}", ".")
                 front_image.push()
             }
         }
         dir('server') {
             docker.withRegistry("https://docker.ossystem.ua") {
-                back_image = docker.build("monster-questionnaire-back:${env.BUILD_TAG}", ".")
+                back_image = docker.build("monsters/ibitoye-back:${env.BUILD_TAG}", ".")
                 back_image.push()
             }
         }
@@ -30,7 +30,7 @@ node {
                 "BACK_IMAGE_NAME=docker.ossystem.ua/${back_image.id}",
                 "ENV=${env.BRANCH_NAME}",
             ]) {
-                kubernetesDeploy configs: 'kubernetes.yml', kubeconfigId: 'kuber-monster-kubeconfig'
+                kubernetesDeploy configs: 'kubernetes.yml', kubeconfigId: 'kuber-monsters-kubeconfig'
             }
         }
     }
