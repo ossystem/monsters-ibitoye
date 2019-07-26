@@ -20,7 +20,7 @@ I added a try again button to allow users answer multiple time and test how send
 
 I also wanted to add a log out functionality but didnt cause of time constraints. However to test with different users you will need to delete the `access_token` and `expires_in` in your local storage this will take you to the authorization page when you reload.
 
-![Client side architechture](/Monster Architechture.png)
+![Client side architechture](Monster Architechture.png)
 
 ## Author
 
