@@ -1,4 +1,4 @@
-import { SUBMIT_ANSWERS, SUBMIT_ANSWER } from "../actions/types";
+import { SUBMIT_ANSWERS, SUBMIT_ANSWER, RESET_ANSWERS } from "../actions/types";
 
 const initialState = {
   answers: [],
@@ -19,6 +19,8 @@ export default function(state = initialState, action) {
           emailSent: true,
           submittedAll: true,
         };
+    case RESET_ANSWERS:
+        return initialState;
     default:
       return state;
   }

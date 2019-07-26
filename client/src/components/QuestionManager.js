@@ -18,7 +18,7 @@ import PageSevenMonster from "../assets/page_7_monster.png";
 import PageEightMonster from "../assets/page_8_monster.png";
 
 const useStyles = makeStyles(_ => ({
-  groupedJumbotron: {
+  groupedQuestionManager: {
     display: 'flex',
     flexDirection: 'column',
     position: 'absolute',
@@ -31,7 +31,7 @@ const useStyles = makeStyles(_ => ({
       width: '300px'
     },
   },
-  jumbotron: {
+  questionManager: {
     border: '1px solid #D2D2D2',
     borderRadius: '5px',
     padding: '0 56px 56px',
@@ -77,7 +77,7 @@ const useStyles = makeStyles(_ => ({
   },
 }));
 
-function Jumbotron(props) {
+function QuestionManager(props) {
   const { question, getQuestion, handleNextPage, authenticateUser } = props;
   const classNames = useStyles();
   let monsterImage = PageTwoMonster;
@@ -123,7 +123,7 @@ function Jumbotron(props) {
         />
       );
       break;
-    case "slider":
+    case "progress":
       monsterImage = PageEightMonster;
       FormComponent = (
         <SliderOption 
@@ -148,9 +148,9 @@ function Jumbotron(props) {
       <Header />
       { 
         FormComponent &&
-        <div className={classNames.groupedJumbotron}>
+        <div className={classNames.groupedQuestionManager}>
           <img src={monsterImage} className={classNames.monster} alt="Monster crown"/>
-          <div className={classNames.jumbotron}>
+          <div className={classNames.questionManager}>
             <Pagination 
               min={question.id < 2 ? question.id + 1 : question.id}
               max={4}
@@ -173,4 +173,4 @@ const mapStateToProps = (state) => ({
 export default connect(
   mapStateToProps,
   { getQuestion },
-)(Jumbotron);
+)(QuestionManager);

@@ -2,6 +2,7 @@ module.exports = {
   PROJECT_NAME: 'monster',
   EMAIL_RECEIVER: process.env.REACT_APP_PROD_EMAIL_RECEIVER,
   PROXY: process.env.REACT_APP_PROXY,
+  EMAIL_API_SECRET_KEY: process.env.REACT_APP_EMAIL_API_SECRET_KEY,
   BUTTON_COLORS: {
     BLUE: {
       TEXT: 'blue',

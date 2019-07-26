@@ -1,4 +1,4 @@
-import { SUBMIT_ANSWER, SUBMIT_ANSWERS, RESET_QUESTION } from "../actions/types";
+import { SUBMIT_ANSWER, SUBMIT_ANSWERS, RESET_QUESTION, RESET_ANSWERS } from "../actions/types";
 import { postData } from "../modules";
 
 export const submitAnswer = (formData) => async dispatch => {
@@ -44,4 +44,11 @@ export const submitAnswers = (formData) => async dispatch => {
       payload: true,
     });
   }
+};
+
+export const resetAnswers = () => async dispatch => {
+  dispatch({
+    type: RESET_ANSWERS,
+    payload: '',
+  });
 };

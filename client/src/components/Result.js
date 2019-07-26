@@ -7,10 +7,10 @@ import ResultBox from "./ResultBox";
 import NextButton from "./NextButton";
 
 import { submitAnswers } from "../actions/answerAction";
-import { EMAIL_RECEIVER, BUTTON_COLORS } from "../helpers/constants";
+import { EMAIL_RECEIVER, BUTTON_COLORS, EMAIL_API_SECRET_KEY } from "../helpers/constants";
 import ResultImage from "../assets/page_9_monster.png";
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles(() => ({
   root: {
     margin: '70px 65px',
     '@media (max-width: 320px)': {
@@ -83,12 +83,12 @@ function Result(props) {
         .trim()
         .concat('<br> Have a great day 🙂!');
 
-        const email = {
-        "auth": "2495sjdf932la_3495=+473345",
-        "to": [EMAIL_RECEIVER],
-        "emailBody": `A user just answered the monster questionnaire.<br> ${body}`,
-        "title": "Monster answer"
-      }
+      const email = {
+        auth: EMAIL_API_SECRET_KEY,
+        to: [EMAIL_RECEIVER],
+        title: "Monster App by Ibitoye Rotimi Best | Ossystem",
+        emailBody: `A user just answered the monster questionnaire.<br> ${body}`,
+      };
       props.submitAnswers(email);
     }
   }, [answers, emailSent, props]);

@@ -2,20 +2,24 @@ import React from "react";
 import { connect } from "react-redux";
 
 import Home from "../components/Home";
-import Jumbotron from "../components/Jumbotron";
+import QuestionManager from "../components/QuestionManager";
 import Result from "../components/Result";
 import { STEPS } from "../helpers/constants";
 import { setStep } from "../actions/stepAction";
+import { resetAnswers } from "../actions/answerAction";
 
 function AppWrapper(props) {
-  const handleNextPage = (event) => {
+  const handleNextPage = () => {
     if (props.step === STEPS.HOME) {
       props.setStep(STEPS.AUTH);
     } else if (props.step === STEPS.AUTH) {
       props.setStep(STEPS.QUESTIONS);
     } else if (props.step === STEPS.QUESTIONS) {
       props.setStep(STEPS.RESULT);
-    }  else {
+    }  else if (props.step === STEPS.RESULT) {
+      props.resetAnswers();
+      props.setStep(STEPS.QUESTIONS);
+    } else {
       props.setStep(STEPS.QUESTIONS);
     }
   };
@@ -24,9 +28,9 @@ function AppWrapper(props) {
     case STEPS.HOME:
       return <Home handleNextPage={handleNextPage}/>;
     case STEPS.AUTH:
-      return <Jumbotron handleNextPage={handleNextPage} authenticateUser={true} />;
+      return <QuestionManager handleNextPage={handleNextPage} authenticateUser={true} />;
     case STEPS.QUESTIONS:
-      return <Jumbotron handleNextPage={handleNextPage} authenticateUser={false} />;
+      return <QuestionManager handleNextPage={handleNextPage} authenticateUser={false} />;
     case STEPS.RESULT:
       return <Result handleNextPage={handleNextPage}/>;
     default:
@@ -41,5 +45,5 @@ const mapStateToProps = (state) => ({
 
 export default connect(
   mapStateToProps,
-  { setStep }
+  { setStep, resetAnswers }
 )(AppWrapper);
