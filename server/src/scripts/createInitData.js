@@ -56,7 +56,7 @@ const UserModel = require('../components/user/models/user.model');
     {
       question: `You'd rather be a bad or a good monster?`,
       options: [
-        'Good monster', 'Bad monster'
+        'Bad monster', 'Good monster'
       ],
       optionType: 'progress',
     },

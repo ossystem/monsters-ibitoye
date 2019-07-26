@@ -7,10 +7,10 @@ const AuthService = require('../../src/services/auth.service');
 const TokenGeneratorService = require('../../src/services/token.service');
 
 // Authorization not required
-router.use('/token', TokenGeneratorService);
+router.use('/api/token', TokenGeneratorService);
 
 // Authorization required
-router.use('/user', AuthService, UserRoutes);
-router.use('/question', AuthService, QuestionRoutes);
+router.use('/api/user', AuthService, UserRoutes);
+router.use('/api/question', AuthService, QuestionRoutes);
 
 module.exports = router;

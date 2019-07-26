@@ -1,7 +1,7 @@
 module.exports = {
   PROJECT_NAME: 'monster',
-  // EMAIL_RECEIVER: 'monsters@trialjectory.com',
-  EMAIL_RECEIVER: 'b.ibitoye@ossystem.com.ua',
+  EMAIL_RECEIVER: 'monsters@trialjectory.com',
+  // EMAIL_RECEIVER: 'b.ibitoye@ossystem.com.ua',
   PROXY: process.env.REACT_APP_PROXY,
   BUTTON_COLORS: {
     BLUE: {
