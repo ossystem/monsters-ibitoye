@@ -1,45 +1,45 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: front
-  namespace: monster-${ENV}
+  name: ibitoye-front
+  namespace: monsters
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: front
+      app: ibitoye-front
   template:
     metadata:
       labels:
-        app: front
+        app: ibitoye-front
     spec:
       containers:
       - image: ${FRONT_IMAGE_NAME}
         imagePullPolicy: Always
-        name: front
+        name: ibitoye-front
         envFrom:
         - configMapRef:
-            name: ${ENV}
+            name: ibitoye
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: back
-  namespace: monster-${ENV}
+  name: ibitoye-back
+  namespace: monsters
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: back
+      app: ibitoye-back
   template:
     metadata:
       labels:
-        app: back
+        app: ibitoye-back
     spec:
       containers:
       - image: ${BACK_IMAGE_NAME}
         imagePullPolicy: Always
-        name: back
+        name: ibitoye-back
         envFrom:
         - configMapRef:
-            name: ${ENV}
+            name: ibitoye
